@@ -11,15 +11,15 @@ import {
 export default class ExampleMixin extends Vue {
   store: Store<IStoreState> = useStore();
   app: App = getModule(App, this.store);
-  mixinProp = 'mixin prop';
-  mixinProp2 = 'mixin prop 2';
+  mixinProp = 'mixinPropValue';
+  mixinProp2 = 'mixinProp2Value';
 
   async mixinMethod(): Promise<void> {
-    console.log('this is mixin prop logged from mixin', this.mixinProp);
-    await this.app.setMessage('message changed via mixin');
+    console.log('ExampleMixin mixinMethod:', this.mixinProp);
+    await this.app.setMessage('ExampleMixin mixinMethod: new app message');
   }
 
   mounted(): void {
-    console.log('this is another mixin prop logged from mixin mounted', this.mixinProp2);
+    console.log('ExampleMixin mounted:', this.mixinProp2);
   }
 }

@@ -32,17 +32,12 @@ import { uiEvents } from '@/events';
   components: {
     HelloWorld,
   },
-  watch: {
-    'app.message': (newValue) => {
-      console.log('watcher', newValue);
-    },
-  },
 })
 export default class HomeView extends mixins(ExampleMixin) {
   store: Store<IStoreState> = useStore();
   app: App = getModule(App, this.store);
   message: Message = getModule(Message, this.store);
-  uiEvents: any = uiEvents;
+  uiEvents: Record<string, string> = uiEvents;
 
   @NoCache
   get messageUpperCase(): string {
@@ -50,14 +45,14 @@ export default class HomeView extends mixins(ExampleMixin) {
   }
 
   mounted(): void {
-    this.app.setMessage('message from first module');
-    this.message.setMessage('message from second module');
-    console.log('this is mixin prop logged from component', this.mixinProp);
+    this.app.setMessage('HomeView mounted: first message');
+    this.message.setMessage('HomeView mounted: second message');
+    console.log('HomeView mixinProp:', this.mixinProp);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  onHelloWorldEvent($e: any): void {
-    console.log('onHelloWorldEvent', $e);
+  onHelloWorldEvent(message: any): void {
+    console.log('HomeView onHelloWorldEvent:', message);
+    this.app.setMessage(message);
   }
 }
 </script>

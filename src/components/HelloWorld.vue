@@ -6,29 +6,20 @@
 </template>
 
 <script lang="ts">
-import {
-  Options,
-  Vue,
-} from 'vue-class-component';
+import { Options } from 'vue-class-component';
+import { Prop, Watch, Vue } from 'vue-property-decorator';
 import { uiEvents } from '@/events';
 
 @Options({
-  props: {
-    msg: String,
-    msg2: String,
-  },
   emits: [uiEvents.helloWorldEvent],
-  watch: {
-    msg(msg: string) {
-      this.onMsgChange(msg);
-    },
-  },
 })
 export default class HelloWorld extends Vue {
-  msg!: string;
-  msg2!: string;
+  @Prop(String) readonly msg: string | undefined;
+  @Prop(String) readonly msg2: string | undefined;
 
+  @Watch('msg')
   onMsgChange(msg: string): void {
+    console.log('HelloWorld onMsgChange');
     this.$emit(uiEvents.helloWorldEvent, msg);
   }
 }
