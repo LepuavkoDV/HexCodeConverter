@@ -4,7 +4,7 @@
     <HelloWorld
       :prop1="app.message"
       :prop2="messageUpperCase"
-      :typedProp="getObj"
+      :typedProp="getTypedProp"
       @[uiEvents.helloWorldEvent]="onHelloWorldEvent"
     />
     <button @click="mixinMethod()">ClickMe</button>
@@ -47,7 +47,7 @@ export default class HomeView extends mixins(ExampleMixin) {
   }
 
   @NoCache
-  get getObj(): IPropExample {
+  get getTypedProp(): IPropExample {
     return { name: this.messageUpperCase, value: 1 };
   }
 
