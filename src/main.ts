@@ -4,7 +4,10 @@ import './registerServiceWorker';
 import router from './router';
 import { store, key } from './store';
 
-createApp(App)
-  .use(store, key)
+const app = createApp(App);
+// @ts-ignore
+app.config.devtools = true;
+
+app.use(store, key)
   .use(router)
   .mount('#app');

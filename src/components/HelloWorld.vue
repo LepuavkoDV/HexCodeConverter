@@ -1,26 +1,33 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg2 }}</h1>
+    <h1>{{ prop1 }}</h1>
+    <h1>{{ prop2 }}</h1>
+    <h1>{{ typedProp }}</h1>
   </div>
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
 import { Options } from 'vue-class-component';
-import { Prop, Watch, Vue } from 'vue-property-decorator';
+import {
+  Prop, Watch, Emit, Vue,
+} from 'vue-property-decorator';
 import { uiEvents } from '@/events';
+import { IPropExample } from '@/types';
 
 @Options({
   emits: [uiEvents.helloWorldEvent],
 })
 export default class HelloWorld extends Vue {
-  @Prop(String) readonly msg: string | undefined;
-  @Prop(String) readonly msg2: string | undefined;
+  @Prop(String) readonly prop1!: string;
+  @Prop(String) readonly prop2!: string;
+  @Prop({ type: Object as PropType<IPropExample> }) readonly typedProp!: IPropExample;
 
   @Watch('msg')
+  @Emit(uiEvents.helloWorldEvent)
+  // eslint-disable-next-line class-methods-use-this
   onMsgChange(msg: string): void {
-    console.log('HelloWorld onMsgChange');
-    this.$emit(uiEvents.helloWorldEvent, msg);
+    console.log('HelloWorld onMsgChange', msg);
   }
 }
 </script>

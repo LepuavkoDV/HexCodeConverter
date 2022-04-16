@@ -2,8 +2,9 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld
-      :msg="app.message"
-      :msg2="messageUpperCase"
+      :prop1="app.message"
+      :prop2="messageUpperCase"
+      :typedProp="getObj"
       @[uiEvents.helloWorldEvent]="onHelloWorldEvent"
     />
     <button @click="mixinMethod()">ClickMe</button>
@@ -27,6 +28,7 @@ import {
 } from '@/store';
 import { NoCache } from '@/decorators';
 import { uiEvents } from '@/events';
+import { IPropExample } from '@/types';
 
 @Options({
   components: {
@@ -44,6 +46,11 @@ export default class HomeView extends mixins(ExampleMixin) {
     return this.message.getMessageUpperCase;
   }
 
+  @NoCache
+  get getObj(): IPropExample {
+    return { name: this.messageUpperCase, value: 1 };
+  }
+
   mounted(): void {
     this.app.setMessage('HomeView mounted: first message');
     this.message.setMessage('HomeView mounted: second message');
@@ -52,7 +59,7 @@ export default class HomeView extends mixins(ExampleMixin) {
 
   onHelloWorldEvent(message: any): void {
     console.log('HomeView onHelloWorldEvent:', message);
-    this.app.setMessage(message);
+    this.message.setMessage(message);
   }
 }
 </script>
