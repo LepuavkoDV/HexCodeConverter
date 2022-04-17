@@ -42,6 +42,8 @@ module.exports = {
     'vuejs-accessibility/click-events-have-key-events': 0,
     'vuejs-accessibility/mouse-events-have-key-events': 0,
     'vuejs-accessibility/label-has-for': 0,
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
   },
   overrides: [
     {

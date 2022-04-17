@@ -4,7 +4,8 @@
     <HelloWorld
       :prop1="app.message"
       :prop2="messageUpperCase"
-      :typedProp="getTypedProp"
+      :typed-prop="getTypedProp"
+      :typed-prop2="propExample.one"
       @[uiEvents.helloWorldEvent]="onHelloWorldEvent"
     />
     <button @click="mixinMethod()">ClickMe</button>
@@ -12,10 +13,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Options,
-  mixins,
-} from 'vue-class-component';
+import { Options, mixins } from 'vue-property-decorator';
 import HelloWorld from '@/components/HelloWorld.vue';
 import ExampleMixin from '@/mixins/example';
 import {
@@ -28,7 +26,7 @@ import {
 } from '@/store';
 import { NoCache } from '@/decorators';
 import { uiEvents } from '@/events';
-import { IPropExample } from '@/types';
+import { IPropExample, EPropExample } from '@/types';
 
 @Options({
   components: {
@@ -40,6 +38,7 @@ export default class HomeView extends mixins(ExampleMixin) {
   app: App = getModule(App, this.store);
   message: Message = getModule(Message, this.store);
   uiEvents: Record<string, string> = uiEvents;
+  propExample: typeof EPropExample = EPropExample;
 
   @NoCache
   get messageUpperCase(): string {

@@ -8,12 +8,11 @@
 
 <script lang="ts">
 import { PropType } from 'vue';
-import { Options } from 'vue-class-component';
 import {
-  Prop, Watch, Emit, Vue,
+  Prop, Watch, Emit, Vue, Options,
 } from 'vue-property-decorator';
 import { uiEvents } from '@/events';
-import { IPropExample } from '@/types';
+import { IPropExample, EPropExample } from '@/types';
 
 @Options({
   emits: [uiEvents.helloWorldEvent],
@@ -22,6 +21,8 @@ export default class HelloWorld extends Vue {
   @Prop(String) readonly prop1!: string;
   @Prop(String) readonly prop2!: string;
   @Prop({ type: Object as PropType<IPropExample> }) readonly typedProp!: IPropExample;
+  @Prop({ type: String as unknown as () => EPropExample, default: EPropExample.one })
+  readonly typedProp2!: EPropExample;
 
   @Watch('msg')
   @Emit(uiEvents.helloWorldEvent)
