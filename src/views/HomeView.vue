@@ -50,6 +50,7 @@ export default class HomeView extends mixins(ExampleMixin) {
   }
 
   mounted(): void {
+    console.log(this.plugin.pluginMethod('from plugin'));
     this.app.setMessage('HomeView mounted: first message');
     this.message.setMessage('HomeView mounted: second message');
     console.log('HomeView mixinProp:', this.mixinProp);
