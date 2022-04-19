@@ -21,8 +21,7 @@ import {
   getModule,
   App,
   Message,
-  Store,
-  IStoreState,
+  IStore,
 } from '@/store';
 import { NoCache } from '@/decorators';
 import { uiEvents } from '@/events';
@@ -34,7 +33,7 @@ import { IPropExample, EPropExample } from '@/types';
   },
 })
 export default class HomeView extends mixins(ExampleMixin) {
-  store: Store<IStoreState> = useStore();
+  store: IStore = useStore();
   app: App = getModule(App, this.store);
   message: Message = getModule(Message, this.store);
   uiEvents: Record<string, string> = uiEvents;

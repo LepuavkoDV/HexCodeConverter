@@ -3,13 +3,12 @@ import {
   useStore,
   getModule,
   App,
-  Store,
-  IStoreState,
+  IStore,
 } from '@/store';
 
 @Options({})
 export default class ExampleMixin extends Vue {
-  store: Store<IStoreState> = useStore();
+  store: IStore = useStore();
   app: App = getModule(App, this.store);
   mixinProp = 'mixinPropValue';
   mixinProp2 = 'mixinProp2Value';
